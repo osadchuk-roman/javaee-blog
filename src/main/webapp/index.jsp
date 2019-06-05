@@ -22,7 +22,7 @@
             </div>
 
             <div align="right">
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/newPost">New Post 2</a>
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/newPost">New Post</a>
             </div>
             <div style="margin-top: 20px">
                 <c:forEach items="${requestScope.posts}" var="post">
