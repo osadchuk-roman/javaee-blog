@@ -25,6 +25,7 @@ public class PostListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> postsNames = new ArrayList<String>(Arrays.asList("Post1","Post2","Post3","Post4"));
         req.setAttribute("posts", dataStorage.getPostList());
+        resp.getWriter().println("");
         RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
         view.forward(req, resp);
         log.info("Post list was opened");
