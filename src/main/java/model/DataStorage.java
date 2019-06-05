@@ -1,16 +1,17 @@
 package model;
 
-import lombok.Getter;
-
+import lombok.extern.java.Log;
 import javax.annotation.PostConstruct;
 import javax.inject.Singleton;
 import javax.ejb.Startup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Startup
 @Singleton
+@Log
 public class DataStorage {
     private  List<Post> postList;
 
@@ -27,13 +28,28 @@ public class DataStorage {
                 new Post(3, "Post3", "Subject3", "Text3"),
                 new Post(4,"Post4", "Subject4", "Text4")
         ));
+        log.info("Post list was initialized");
     }
 
     public void addPost(Post post){
         postList.add(post);
+        log.info(post + " was added to postList");
     }
 
     public  List<Post> getPostList() {
         return postList;
+    }
+
+    public Post findById(long id){
+        Optional<Post> optionalPost = postList.stream().filter(p -> p.getId() == id).findAny();
+        Post post = new Post();
+
+        if (optionalPost.isPresent()) {
+            post = optionalPost.get();
+        } else {
+            log.warning("Post with id = " + id + " not found.");
+        }
+
+        return post;
     }
 }

@@ -1,5 +1,6 @@
 package servlet;
 
+import lombok.extern.java.Log;
 import model.DataStorage;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Log
 @WebServlet("")
 public class PostListServlet extends HttpServlet {
     private @Inject
@@ -22,16 +24,9 @@ public class PostListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> postsNames = new ArrayList<String>(Arrays.asList("Post1","Post2","Post3","Post4"));
-        /*List<Post> postList = new ArrayList<>(Arrays.asList(
-                new Post("Post1", "Subject1", "Text1"),
-                new Post("Post2", "Subject2", "Text2"),
-                new Post("Post3", "Subject3", "Text3"),
-                new Post("Post4", "Subject4", "Text4")
-        ));*/
-        //req.setAttribute("postsNames", "Post1, Post2, Post3, Post4");
-        //req.setAttribute("posts", postList);
         req.setAttribute("posts", dataStorage.getPostList());
         RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
         view.forward(req, resp);
+        log.info("Post list was opened");
     }
 }

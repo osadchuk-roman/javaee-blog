@@ -1,5 +1,6 @@
 package servlet;
 
+import lombok.extern.java.Log;
 import model.DataStorage;
 import model.Post;
 
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
+@Log
 @WebServlet("/readPost")
 public class ReadPostServlet extends HttpServlet {
     private @Inject
@@ -21,13 +22,10 @@ public class ReadPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id  = Long.parseLong(req.getParameter("id"));
-        Optional<Post> optionalPost = dataStorage.getPostList().stream().filter(p -> p.getId() == id).findAny();
-        Post post = new Post();
-        if (optionalPost.isPresent()) {
-            post = optionalPost.get();
-        }
+        Post post = dataStorage.findById(id);
         req.setAttribute("post", post);
         RequestDispatcher view = req.getRequestDispatcher("/readPost.jsp");
         view.forward(req, resp);
+        log.info(post + " was opened");
     }
 }
