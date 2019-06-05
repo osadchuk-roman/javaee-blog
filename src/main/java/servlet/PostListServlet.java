@@ -1,4 +1,6 @@
-package model;
+package servlet;
+
+import model.DataStorage;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -14,7 +16,8 @@ import java.util.List;
 
 @WebServlet("")
 public class PostListServlet extends HttpServlet {
-    private @Inject DataStorage dataStorage;
+    private @Inject
+    DataStorage dataStorage;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

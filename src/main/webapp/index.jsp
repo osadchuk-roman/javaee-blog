@@ -22,16 +22,17 @@
                 <div>
                     <h1>JavaEE Blog</h1>
                 </div>
+
                 <div align="right">
-                    <h:outputLink value="createPost.jsp">New Post 1</h:outputLink>
-                    <a href="createPost.jsp">New Post 2</a>
-                    <button class="btn btn-primary">Add post</button>
+                    <h:outputLink value="${pageContext.request.contextPath}/newPost">New Post 1</h:outputLink>
+                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/newPost">New Post 2</a>
                 </div>
-                <div>
+                <div style="margin-top: 20px">
                     <c:forEach items="${requestScope.posts}" var="post">
-                        <div align="left" style="background-color: lightblue; margin-bottom: 20px; padding: 20px">
+                        <div style="background-color: lightblue; margin-bottom: 20px; padding: 20px;">
                             <h2>${post.getName()}</h2>
                             <h4>${post.getSubject()}</h4>
+                            <a style="color: white" href="${pageContext.request.contextPath}/readPost?id=${post.getId()}" >Read</a>
                         </div>
                     </c:forEach>
                 </div>
